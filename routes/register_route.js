@@ -4,6 +4,10 @@ const router=new express.Router();
 const bodyParser=require('body-parser');
 var app=express();
 
+router.post('/abc',function(req,res)
+{
+    console.log("Thankyou");
+})
 router.post('/register',function(req,res)
 {
     console.log("AAYE");
