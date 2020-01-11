@@ -1,0 +1,23 @@
+{
+  "name": "api-backend",
+  "version": "1.0.0",
+  "description": "Api Project Backend",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softwarica-github/t2-backend-api-UtkrishtaBhattarai.git"
+  },
+  "author": "Utkrishta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/softwarica-github/t2-backend-api-UtkrishtaBhattarai/issues"
+  },
+  "homepage": "https://github.com/softwarica-github/t2-backend-api-UtkrishtaBhattarai#readme"
+}
