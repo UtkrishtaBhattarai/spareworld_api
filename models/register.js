@@ -1,7 +1,6 @@
 const mongoose=require('mongoose');
 const Registration=mongoose.model('Registration',
-{
-    
+{    
 name:{
     type:String
 },
