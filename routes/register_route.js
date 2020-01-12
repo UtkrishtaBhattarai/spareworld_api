@@ -4,10 +4,10 @@ const router=new express.Router();
 const bodyParser=require('body-parser');
 var app=express();
 
-router.post('/register',function(req,res)
+router.get('/register',function(req,res)
 {
     console.log("AAYE");
-    req.send("Main hoon idhar");
+    res.send("Main hoon idhar");
     //  const data=new Students(req.body);
     //  data.save();
     //  if(data.save())
@@ -15,5 +15,4 @@ router.post('/register',function(req,res)
     //  console.log("save bhayo kaka");
     //  }
 })
-
 module.exports=router;
