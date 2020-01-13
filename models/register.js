@@ -1,12 +1,18 @@
 const mongoose=require('mongoose');
-const Registration=mongoose.model('Registration',
-{    
-name:{
-    type:String
-},
-age:{
-    type:String
-},
+const Register=mongoose.model('Register',
+{
+    fname:{
+        type:String
+    },
+    lname:{
+        type:String
+    },
+    email:{
+        type:String
+    },
+    password:{
+        type:String
+    },
     address:{
         type:String
     },
@@ -14,4 +20,4 @@ age:{
        type:String 
     }
 })
-module.exports=Registration;
+module.exports=Register;
