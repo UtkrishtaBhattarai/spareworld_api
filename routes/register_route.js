@@ -46,3 +46,9 @@ router.get('/users/:id',function(req,res)
         });
     });
 })
+
+router.delete('/deleteuser/:sid',function(req,res)
+{
+    Register.findByIdAndDelete(req.params.sid);
+    console.log("deleted");
+})
