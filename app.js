@@ -6,6 +6,8 @@ app.use(bodyParser.urlencoded({
 }));
 require('./db/spareparts');
 const registerRoute=require('./routes/register_route');
+const categoryRoute=require('./routes/category_route');
 app.use(express.json());
 app.use(registerRoute);
+app.use(categoryRoute);
 app.listen(4000);

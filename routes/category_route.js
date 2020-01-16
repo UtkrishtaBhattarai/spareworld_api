@@ -1,13 +1,13 @@
 const express=require('express');
 const mongoose=require('mongoose');
-const Register=require('../models/register');
+const category=require('../models/category');
 const router=new express.Router();
 const bodyParser=require('body-parser');
 var app=express();
 
-router.get('/users',function(req,res)
+router.get('/category',function(req,res)
 {
-    Register.find()
+    category.find()
     .exec()
     .then(docs =>{
         console.log(docs);
@@ -19,22 +19,18 @@ router.get('/users',function(req,res)
             error:err 
         });
     });
-   
 })
     
-
-     
-router.post('/register_user',function(req,res)
+router.post('/upload_category',function(req,res)
 {
-    console.log(req.body);
-     var data=new Register(req.body);
+     console.log(req.body);
+     var data=new category(req.body);
       data.save();
-      process.exit(-1);
 })
 
-router.delete('/deleteuser/:id',function(req,res)
+router.delete('/categorydelete/:id',function(req,res)
 {
-   Register.findByIdAndDelete(req.params.id,req.body,function(err,register)
+    category.findByIdAndDelete(req.params.id,req.body,function(err,register)
    {
        if(err) return next(err);
        res.json(register);
@@ -42,9 +38,9 @@ router.delete('/deleteuser/:id',function(req,res)
 });
 
 
-router.get('/users/:id',function(req,res)
+router.get('/category/:id',function(req,res)
 {
-    Register.findById(req.params.id)
+    category.findById(req.params.id)
     .exec()
     .then(docs =>{
         console.log(docs);
