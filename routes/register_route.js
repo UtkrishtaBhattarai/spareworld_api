@@ -29,7 +29,14 @@ router.post('/register_user',function(req,res)
      var data=new Register(req.body);
       data.save();
 })
-module.exports=router;
+
+
+router.delete('/deleteuser/:sid',function(req,res)
+{
+    Register.findByIdAndDelete(req.params.sid);
+    console.log("deleted");
+})
+
 
 router.get('/users/:id',function(req,res)
 {
@@ -47,8 +54,4 @@ router.get('/users/:id',function(req,res)
     });
 })
 
-router.delete('/deleteuser/:sid',function(req,res)
-{
-    Register.findByIdAndDelete(req.params.sid);
-    console.log("deleted");
-})
+module.exports=router;
