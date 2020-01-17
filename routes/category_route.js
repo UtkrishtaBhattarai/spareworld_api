@@ -19,7 +19,8 @@ router.get('/category',function(req,res)
             error:err 
         });
     });
-})
+});
+
     
 router.post('/upload_category',function(req,res)
 {
@@ -36,7 +37,6 @@ router.delete('/categorydelete/:id',function(req,res)
        res.json(register);
    });
 });
-
 
 router.get('/category/:id',function(req,res)
 {
