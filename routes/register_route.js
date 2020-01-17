@@ -4,6 +4,7 @@ const Register=require('../models/register');
 const router=new express.Router();
 const bodyParser=require('body-parser');
 var app=express();
+const auth = require("../middleware/auth")
 
 router.get('/users',function(req,res)
 {
@@ -20,16 +21,13 @@ router.get('/users',function(req,res)
         });
     });
    
-})
-    
-
+});
      
 router.post('/register_user',function(req,res)
 {
     console.log(req.body);
      var data=new Register(req.body);
       data.save();
-      process.exit(-1);
 })
 
 router.delete('/deleteuser/:id',function(req,res)

@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
-const Register=mongoose.model('Register',
+const jwt=require('jsonwebtoken');
+const Register=mongoose.model('register',
 {
     fname:{
         type:String
@@ -18,6 +19,15 @@ const Register=mongoose.model('Register',
     },
     number:{
        type:String 
-    }
-})
+    },
+    tokens: [{
+        token: {
+        type: String,
+        required: true
+        }
+        }]
+       
+});
+
+
 module.exports=Register;
