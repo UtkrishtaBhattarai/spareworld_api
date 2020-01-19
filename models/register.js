@@ -49,8 +49,9 @@ if (err) return res.status(500).send('Error on the server.');
          Register.tokens = Register.tokens.concat({ token:token})
          await Register.save()
          return token
-        
-       }
+    }
+
+    //console.log("Token not working");
        
       
     
