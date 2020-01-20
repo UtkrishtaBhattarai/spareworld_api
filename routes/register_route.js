@@ -77,9 +77,6 @@ router.get('/me', auth.verifyUser, (req, res, next) => {
     res.json({ _id: req.Register._id, fname: req.Register.fname, lname: req.Register.lname, email: req.Register.email, address:req.Register.address,number:req.Register.number });
 });
 
-
-
-
 router.post('/login_user', (req, res, next) => {
     Register.findOne({ email: req.body.email })
         .then((register) => {
