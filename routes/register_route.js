@@ -7,6 +7,7 @@ var app=express();
 const auth = require("../middleware/auth");
 const jwt=require('jsonwebtoken');
 const config=require('../config');
+const bcrypt=require('bcryptjs');
 
 router.get('/users',function(req,res)
 {
@@ -24,11 +25,29 @@ router.get('/users',function(req,res)
     });
    
 });  
-router.post('/register_user',function(req,res)
-{
-    console.log(req.body);
-     var data=new Register(req.body);
-      data.save();
+router.post('/register_user', (req, res, next) => {
+    let password = req.body.password;
+    console.log(password);
+    bcrypt.hash(password, 10, function (err, hash) {
+        if (err) {
+            let err =  new Error('Could not hash!');
+		err.status = 500;
+        return next(err);
+        }
+        Register.create({
+            fname: req.body.fname,
+            lname: req.body.lname,
+            email: req.body.email,
+            address:req.body.address,
+            number:req.body.number,
+            password: hash
+        }).then((register) => {
+            console.log("This is yaha")
+            let token = jwt.sign({ _id: register._id },config.SECRET);
+            res.json({ status: "Signup success!", token: token });
+            console.log(req.body);
+        }).catch(next);
+    });
 });
 router.delete('/deleteuser/:id',function(req,res)
 {
@@ -52,53 +71,38 @@ router.get('/users/:id',function(req,res)
             error:err 
         });
     });
-})
-
-
-
-
-
-router.post("/login_user", function (req, res) {
-    try {
-        Register.findOne({ email: req.body.email }, function (err, Register) {
-                  if (err) return res.status(500).send('Error on the server.');
-                  if (!Register) return res.status(404).send('No user found.');
-                  var passwordIsValid =(req.body.password, Register.password);
-                  if (!passwordIsValid) 
-                  return res.status(401).send({ auth: false, token: null });
-
-                  token =  Register.generateAuthToken();
-       
-        })}
-         catch (e) {
-        res.status(200).send()}
-
 });
-// router.post('/login_user', function(req, res) {
 
-//     Register.findOne({ email: req.body.email }, function (err, Register) {
-//       if (err) return res.status(500).send('Error on the server.');
-//       if (!Register) return res.status(404).send('No user found.');
-//       var passwordIsValid =(req.body.password, Register.password);
-//       if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-//       var token = jwt.sign({ id: Register._id },config.secret, {
-//         expiresIn: 86400 // expires in 24 hours
-//       });
-//     //   Register.token = Register.token.concat({ token :token })
-//     //    Register.save()
-//       res.status(200).send({ auth: true, token: token });
-//     });
-    
-//   });
+router.get('/me', auth.verifyUser, (req, res, next) => {
+    res.json({ _id: req.Register._id, fname: req.Register.fname, lname: req.Register.lname, email: req.Register.email, address:req.Register.address,number:req.Register.number });
+});
 
 
 
 
+router.post('/login_user', (req, res, next) => {
+    Register.findOne({ email: req.body.email })
+        .then((register) => {
+            if (register == null) {
+                let err = new Error('User not found!');
+                err.status = 401;
+                return next(err);
+            } else {
+                bcrypt.compare(req.body.password, register.password)
+                    .then((isMatch) => {
+                        if (!isMatch) {
+                            let err = new Error('Password does not match!');
+                            err.status = 401;
+                            return next(err);
+                        }
+                        let token = jwt.sign({ _id: Register._id },config.SECRET);
+                        res.json({ status: 'Login success!', token: token });
+                    }).catch(next);
+            }
+        }).catch(next);
+});
 
-
-
-
-router.get('/test_url',auth,function(req,res)
+router.get('/test_url',auth.verifyUser,function(req,res)
 {
     res.send("Working correctly");
 })
