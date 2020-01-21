@@ -9,6 +9,8 @@ const jwt=require('jsonwebtoken');
 const config=require('../config');
 const bcrypt=require('bcryptjs');
 
+
+//lists all users that are registered into the system
 router.get('/users',function(req,res)
 {
     Register.find()
@@ -25,6 +27,8 @@ router.get('/users',function(req,res)
     });
    
 });  
+
+//helps in registration
 router.post('/register_user', (req, res, next) => {
     let password = req.body.password;
     console.log(password);
@@ -49,6 +53,8 @@ router.post('/register_user', (req, res, next) => {
         }).catch(next);
     });
 });
+
+//helps in deleting user
 router.delete('/deleteuser/:id',function(req,res)
 {
    Register.findByIdAndDelete(req.params.id,req.body,function(err,register)
@@ -57,6 +63,8 @@ router.delete('/deleteuser/:id',function(req,res)
        res.json(register);
    });
 });
+
+//helps in getting the data of user according to their id
 router.get('/users/:id',function(req,res)
 {
     Register.findById(req.params.id)
