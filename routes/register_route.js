@@ -82,7 +82,8 @@ router.get('/users/:id',function(req,res)
 });
 
 router.get('/me', auth.verifyUser, (req, res, next) => {
-    res.json({ _id: req.Register._id, fname: req.Register.fname, lname: req.Register.lname, email: req.Register.email, address:req.Register.address,number:req.Register.number });
+    console.log(req._id);
+    res.json({ _id: req.Register._id, fname: req.Register.fname, lname: req.Register.lname, email: req.Register.email });
 });
 
 router.post('/login_user', (req, res, next) => {
