@@ -16,8 +16,8 @@ module.exports.verifyUser = (req, res, next) => {
         throw new Error('Token could not be verified!');
     }
     Register.findById(data._id)
-        .then((register) => {
-            req.register = register;
+        .then((Register) => {
+            req.Register = Register;
             next();
         })
 }
