@@ -108,9 +108,5 @@ router.post('/login_user', (req, res, next) => {
         }).catch(next);
 });
 
-router.get('/test_url',auth.verifyUser,function(req,res)
-{
-    res.send("Working correctly");
-})
    
 module.exports=router;
