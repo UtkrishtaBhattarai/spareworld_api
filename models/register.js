@@ -1,6 +1,5 @@
 const mongoose=require('mongoose');
 const jwt=require('jsonwebtoken');
-const config=require('../config');
 const Register= new mongoose.Schema(
 {
     fname:{
@@ -25,4 +24,8 @@ const Register= new mongoose.Schema(
        type:String 
     }
 });
+
+
+
+
 module.exports=mongoose.model('register',Register);

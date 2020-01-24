@@ -1,16 +1,37 @@
-const auth = require('./middleware/auth');
+const auth = require('./auth');
+const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 const express=require('express');
 var app=express();
+const morgan = require('morgan');
+const dotenv = require('dotenv').config();
+const cors = require('cors');
+const registerRoute=require('./routes/register_route');
+const categoryRoute=require('./routes/category_route');
 app.use(bodyParser.urlencoded({
     extended:false
 }));
-require('./db/spareparts');
-const registerRoute=require('./routes/register_route');
-const categoryRoute=require('./routes/category_route');
+app.use(morgan('tiny'));
 app.use(express.json());
-app.use(registerRoute);
-app.use(categoryRoute);
-app.listen(4000);
-console.log("The localhost is running in port number 4000");
-console.log("localhost:4000/");
+app.options('*', cors());
+app.use(express.urlencoded({extended: true }));
+
+require('./db/spareparts');
+
+app.use(express.json());
+app.use('/register', registerRoute);
+app.use(auth.verifyUser);
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.statusCode = 500;
+    res.json({ status: err.message });
+})
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.statusCode = 500;
+    res.json({ status: err.message });
+});
+
+app.listen(process.env.PORT, () => {
+    console.log(`App is running at localhost:${process.env.PORT}`);
+});
