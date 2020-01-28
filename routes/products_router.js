@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Product = require('../models/products');
+
 router.post('/addproducts', (req, res, next) => {
     Product.create({
         name: req.body.name,
