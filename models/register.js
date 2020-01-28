@@ -25,7 +25,4 @@ const Register= new mongoose.Schema(
     }
 });
 
-
-
-
 module.exports=mongoose.model('register',Register);
