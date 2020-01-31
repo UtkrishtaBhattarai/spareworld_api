@@ -2,22 +2,20 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const Product = require('../models/products');
+const Order = require('../models/orders');
 
-router.post('/addproducts', (req, res, next) => {
-    Product.create({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        image: req.body.image,
-        specification: req.body.specification
-    }).then((product) => {
+router.post('/addorder', (req, res, next) => {
+    Order.create({
+        userid: req.body.userid,
+        productid: req.body.productid,
+        quantity: req.body.quantity
+    }).then((order) => {
         res.json({ status: "Product Added!" });
     }).catch(next);
 });
 
-router.get('/getproduct', (req, res, next) => {
-    Product.find()
+router.get('/getorder', (req, res, next) => {
+    Order.find()
         .exec()
         .then(docs => {
             console.log(docs);
@@ -31,8 +29,8 @@ router.get('/getproduct', (req, res, next) => {
         });
 });
 
-router.delete('/deleteproduct/:id', function (req, res, next) {
-    Product.findByIdAndDelete(req.params.id).then(response => {
+router.delete('/order/:id', function (req, res, next) {
+    Order.findByIdAndDelete(req.params.id).then(response => {
         console.log("Product detleted of" + req.params.id)
     })
 })

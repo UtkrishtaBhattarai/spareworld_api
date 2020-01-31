@@ -40,7 +40,7 @@ router.delete('/deletenotification/:id', function (req, res) {
     });
 });
 
-router.get('/notification/:id', function (req, res) {
+router.get('/:id', function (req, res) {
     Notification.findById(req.params.id)
         .exec()
         .then(docs => {
