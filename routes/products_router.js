@@ -37,4 +37,30 @@ router.delete('/deleteproduct/:id', function (req, res, next) {
     })
 })
 
+
+router.get('/:id', function (req, res) {
+    Product.findById(req.params.id)
+        .exec()
+        .then(docs => {
+            console.log(docs);
+            res.status(200).json(docs);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+})
+
+router.put('/updateproduct/:id', (req, res, next) => {
+    Product.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        description: req.body.description,
+        specification: req.body.specification,
+        price: req.body.price
+    }, { new: true })
+});
+
+
 module.exports = router;

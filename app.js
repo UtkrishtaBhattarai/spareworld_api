@@ -11,6 +11,8 @@ const categoryRoute = require("./routes/category_route");
 const uploadRouter = require('./routes/upload_route');
 const productRouter = require('./routes/products_router');
 const NotificationRoute = require('./routes/notification_route');
+const CartRoute = require('./routes/cart_route');
+
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -30,20 +32,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 require("./db/spareparts");
 app.use(express.json());
-
 //app.use(registerRoute);
 app.use("/register", registerRoute);
 app.use("/category", categoryRoute);
 app.use('/upload', uploadRouter);
 app.use('/product', productRouter);
 app.use('/notification', NotificationRoute);
+app.use('/cart', CartRoute);
 app.use(auth.verifyUser);
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.statusCode = 500;
   res.json({ status: err.message });
 });
-
 app.listen(process.env.PORT, () => {
   console.log(`App is running at localhost:${process.env.PORT}`);
 });
