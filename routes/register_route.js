@@ -26,6 +26,24 @@ router.post("/register_user", (req, res, next) => {
     });
 });
 
+//forgot password
+router.post("/forgotpassword", (req, res, next) => {
+    let password = req.body.password;
+    bcrypt.hash(password, 10, function (err, hash) {
+        if (err) {
+            throw new Error("Could not hash!");
+        }
+        Register.findOne({
+            email: req.body.email,
+            number: req.body.number
+        })
+            .then(register => {
+                password: hash
+            })
+            .catch(next);
+    });
+});
+
 router.post("/login_user", (req, res, next) => {
     Register.findOne({ email: req.body.email })
         .then(register => {
@@ -65,7 +83,7 @@ router.get("/me", auth.verifyUser, (req, res, next) => {
         password: req.Register.password
     });
 });
-router.put("/me", (req, res, next) => {
+router.put("/me", auth.verifyUser, (req, res, next) => {
     Register.findByIdAndUpdate(
         req.Register._id,
         { $set: req.body },
@@ -77,8 +95,8 @@ router.put("/me", (req, res, next) => {
                 fname: req.register.fname,
                 lname: req.register.lname,
                 email: reg.email,
-                address: req.register.password,
-                address: req.register.address
+                address: req.register.address,
+                number: req.register.number
             });
         })
         .catch(next);
@@ -98,8 +116,6 @@ router.get('/getusers', (req, res, next) => {
             });
         });
 });
-
-
 router.delete('/deleteuser/:id', function (req, res, next) {
     Register.findByIdAndDelete(req.params.id).then(response => {
         console.log("User detleted of" + req.params.id)
