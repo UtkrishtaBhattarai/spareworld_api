@@ -25,7 +25,7 @@ router.post('/addcart', (req, res, next) => {
     Cart.create({
         productid: req.body.productid,
         userid: req.body.userid
-    }).then((product) => {
+    }).then((cart) => {
         console.log(req.body);
         res.json({ status: "Cart Added!" });
     }).catch(next);
@@ -53,5 +53,27 @@ router.get('/:id', function (req, res) {
             });
         });
 })
+
+router.post("/checkcart", function (req, res) {
+    const pp = Cart.find({ productid: req.body.productid, userid: req.body.userid }).countDocuments().then(function (count) {
+        if (count == 0) {
+            res.json({ status: "addhere" });
+        }
+        else {
+            res.json({ status: "cantadd" });
+        }
+    })
+})
+
+router.post('/checkcart1', (req, res, next) => {
+    Cart.find({
+        productid: req.body.productid,
+        userid: req.body.userid
+    }).then((cart) => {
+        console.log(req.body);
+        res.json({ status: "Cart Found!" });
+    }).catch(next);
+});
+
 
 module.exports = router;
