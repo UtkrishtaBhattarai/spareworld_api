@@ -25,7 +25,6 @@ router.post("/register_user", (req, res, next) => {
             .catch(next);
     });
 });
-
 //forgot password
 router.post("/forgotpassword", (req, res, next) => {
     let password = req.body.password;
@@ -43,7 +42,6 @@ router.post("/forgotpassword", (req, res, next) => {
             .catch(next);
     });
 });
-
 router.post("/login_user", (req, res, next) => {
     Register.findOne({ email: req.body.email })
         .then(register => {
