@@ -81,23 +81,13 @@ router.get("/me", auth.verifyUser, (req, res, next) => {
         password: req.Register.password
     });
 });
-router.put("/me", auth.verifyUser, (req, res, next) => {
-    Register.findByIdAndUpdate(
-        req.Register._id,
-        { $set: req.body },
-        { new: true }
-    )
-        .then(register => {
-            res.json({
-                _id: register._id,
-                fname: req.register.fname,
-                lname: req.register.lname,
-                email: reg.email,
-                address: req.register.address,
-                number: req.register.number
-            });
+router.put('/me', auth.verifyUser, (req, res, next) => {
+    console.log(req.body._id + "os id")
+    Register.findByIdAndUpdate(req.body._id, { $set: req.body }, { new: true })
+        .then((register) => {
+
+            res.json({ fname: register.fname, lname: register.lname, address: register.address });
         })
-        .catch(next);
 });
 
 router.get('/getusers', (req, res, next) => {

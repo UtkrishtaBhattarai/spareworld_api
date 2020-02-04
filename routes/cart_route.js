@@ -57,12 +57,42 @@ router.delete('/deletecart/:id', function (req, res) {
 // })
 
 router.post("/checkcart", function (req, res) {
+    console.log(req.body.productid + "is prodict id ");
+    console.log(req.body.userid + "is user id ")
     const pp = Cart.find({ productid: req.body.productid, userid: req.body.userid }).countDocuments().then(function (count) {
         if (count == 0) {
-            res.json({ status: "addhere" });
+            res.send({ status: "addhere" });
         }
         else {
-            res.json({ status: "cantadd" });
+            res.send({ status: "cantadd" });
+        }
+    })
+})
+
+
+
+router.post("/checkcart90", function (req, res) {
+    const pp = Cart.find({ productid: req.body.productid, userid: req.body.userid }).countDocuments().then(function (count) {
+        if (count == 0) {
+            res.send({ status: "addhere" });
+        }
+        else {
+            res.send({ status: "cantadd" });
+        }
+    })
+})
+
+
+
+router.get("/checkcart1/:id", auth.verifyUser, function (req, res) {
+    console.log(req.params.id);
+    console.log(register._id)
+    const pp = Cart.find({ productid: req.params.id, userid: req.register._id }).countDocuments().then(function (count) {
+        if (count == 0) {
+            res.send({ status: "addhere" });
+        }
+        else {
+            res.send({ status: "cantadd" });
         }
     })
 })
