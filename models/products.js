@@ -4,6 +4,13 @@ const productSchema = mongoose.Schema({
     name: String,
     price: Number,
     description: String,
-    specification: String
+    specification: String,
+    categoryid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
+        required: true
+    }
+
 });
+
 module.exports = mongoose.model('spareproduct', productSchema);

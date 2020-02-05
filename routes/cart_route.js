@@ -41,20 +41,6 @@ router.delete('/deletecart/:id', function (req, res) {
     });
 });
 
-// router.get('/:id', function (req, res) {
-//     Cart.findById(req.params.id)
-//         .exec()
-//         .then(docs => {
-//             console.log(docs);
-//             res.status(200).json(docs);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({
-//                 error: err
-//             });
-//         });
-// })
 
 router.post("/checkcart", function (req, res) {
     console.log(req.body.productid + "is prodict id ");
