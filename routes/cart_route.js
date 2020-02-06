@@ -21,12 +21,15 @@ router.get('/', function (req, res) {
             });
         });
 });
-
-
 router.post('/addcart', (req, res, next) => {
+    console.log(req.body);
     Cart.create({
         productid: req.body.productid,
-        userid: req.body.userid
+        userid: req.body.userid,
+        price: req.body.price,
+        name: req.body.name,
+        description: req.body.description,
+        specification: req.body.specification
     }).then((cart) => {
         console.log(req.body);
         res.json({ status: "Cart Added!" });
@@ -84,11 +87,16 @@ router.get("/checkcart1/:id", auth.verifyUser, function (req, res) {
 })
 
 router.get('/check/:id', (req, res, next) => {
-    Cart.findById(req.params.id)
-        .populate('spareproduct', 'name')
-        .then((cart) => {
-            res.json(cart);
-        }).catch(next);
+    Cart.find({ userid: req.params.id }).then(docs => {
+        console.log(docs);
+        res.status(200).json(docs);
+    })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 })
 
 // .put((req, res, next) => {

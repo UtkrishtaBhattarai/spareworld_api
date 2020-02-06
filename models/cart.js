@@ -11,6 +11,10 @@ const Cart = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'spareproduct',
         required: true
-    }
+    },
+    name: String,
+    price: String,
+    description: String,
+    specification: String
 })
 module.exports = mongoose.model('cart', Cart);
