@@ -13,6 +13,7 @@ const productRouter = require('./routes/products_router');
 const NotificationRoute = require('./routes/notification_route');
 const BajajProductRoute = require('./routes/bajajproduct_route');
 const CartRoute = require('./routes/cart_route');
+const OrderRoute = require('./routes/orders_router');
 
 app.use(
   bodyParser.urlencoded({
@@ -37,6 +38,7 @@ require("./db/spareparts");
 app.use(express.json());
 
 
+
 app.use("/register", registerRoute);
 app.use("/category", categoryRoute);
 app.use('/upload', uploadRouter);
@@ -44,6 +46,7 @@ app.use('/product', productRouter);
 app.use('/notification', NotificationRoute);
 app.use('/bajaj', BajajProductRoute);
 app.use('/cart', CartRoute);
+app.use('/order', OrderRoute);
 app.use(auth.verifyUser);
 
 

@@ -5,10 +5,17 @@ const mongoose = require('mongoose');
 const Order = require('../models/orders');
 
 router.post('/addorder', (req, res, next) => {
+    console.log(req.body)
     Order.create({
         userid: req.body.userid,
-        productid: req.body.productid,
-        quantity: req.body.quantity
+        billingaddress: req.body.billingaddress,
+        billingnumber: req.body.billingnumber,
+        price: req.body.price,
+        name: req.body.name,
+        ordernumber: req.body.ordernumber,
+        dispatched: false
+
+
     }).then((order) => {
         res.json({ status: "Product Added!" });
     }).catch(next);
@@ -29,10 +36,30 @@ router.get('/getorder', (req, res, next) => {
         });
 });
 
-router.delete('/order/:id', function (req, res, next) {
-    Order.findByIdAndDelete(req.params.id).then(response => {
-        console.log("Product detleted of" + req.params.id)
-    })
+router.get('/orderget/:id', function (req, res, next) {
+    Order.find
+        ({ ordernumber: req.params.id }).
+        then(Order)
+    {
+        if (Order.dispatched == null) {
+            res.send({ status: "dispatched" })
+        }
+        else {
+            res.send({ status: "notdispatched" })
+        }
+    }
+
 })
+
+router.put('/updateorder/:id', (req, res, next) => {
+    console.log(req.params.id + "is order id")
+    console.log(req.body.dispatched)
+    Order.findByIdAndUpdate(req.params.id,
+        { $set: req.body }, { new: true })
+        .then((order) => {
+
+            res.json({ status: "Success" });
+        })
+});
 
 module.exports = router;
