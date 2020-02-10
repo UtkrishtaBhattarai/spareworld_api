@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 var app = express();
 const Product = require('../models/products');
 const auth = require('../auth')
-
 router.get('/', function (req, res) {
     Cart.find()
         .exec()
@@ -35,16 +34,12 @@ router.post('/addcart', (req, res, next) => {
         res.json({ status: "Cart Added!" });
     }).catch(next);
 });
-
-
 router.delete('/deletecart/:id', function (req, res) {
     Cart.findByIdAndDelete(req.params.id, req.body, function (err, register) {
         if (err) return next(err);
         res.json(register);
     });
 });
-
-
 router.post("/checkcart", function (req, res) {
     console.log(req.body.productid + "is prodict id ");
     console.log(req.body.userid + "is user id ")

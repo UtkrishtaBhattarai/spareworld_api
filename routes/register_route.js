@@ -43,6 +43,7 @@ router.post("/forgotpassword", (req, res, next) => {
     });
 });
 router.post("/login_user", (req, res, next) => {
+    console.log(req.body);
     Register.findOne({ email: req.body.email })
         .then(register => {
             if (register == null) {
