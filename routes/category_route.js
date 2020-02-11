@@ -4,7 +4,6 @@ const category = require('../models/category');
 const router = new express.Router();
 const bodyParser = require('body-parser');
 var app = express();
-
 router.get('/category', function (req, res) {
     category.find()
         .exec()
@@ -19,8 +18,6 @@ router.get('/category', function (req, res) {
             });
         });
 });
-
-
 router.post('/upload_category', function (req, res) {
     console.log(req.body);
     var data = new category(req.body);
@@ -48,5 +45,4 @@ router.get('/category/:id', function (req, res) {
             });
         });
 })
-
 module.exports = router;

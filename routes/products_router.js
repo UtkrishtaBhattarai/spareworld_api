@@ -10,7 +10,8 @@ router.post('/addproducts', (req, res, next) => {
         price: req.body.price,
         description: req.body.description,
         image: req.body.image,
-        specification: req.body.specification
+        specification: req.body.specification,
+        categoryid: req.body.categoryid
     }).then((product) => {
         res.json({ status: "Product Added!" });
     }).catch(next);
@@ -61,6 +62,17 @@ router.put('/updateproduct/:id', (req, res, next) => {
         price: req.body.price
     }, { new: true })
 });
+
+router.get('/getproductc', (req, res, next) => {
+
+    Product
+        .find()
+        .sort('-_id')
+        .populate('category')
+        .exec(function (error, results) {
+            res.send(results);
+        });
+})
 
 
 module.exports = router;
