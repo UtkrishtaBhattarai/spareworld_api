@@ -21,7 +21,8 @@ router.get('/', function (req, res) {
         });
 });
 router.post('/addcart', (req, res, next) => {
-    console.log(req.body);
+    console.log(req.body.productid);
+    console.log("This is name" + req.body.name)
     Cart.create({
         productid: req.body.productid,
         userid: req.body.userid,
@@ -34,6 +35,22 @@ router.post('/addcart', (req, res, next) => {
         res.json({ status: "Cart Added!" });
     }).catch(next);
 });
+router.post('/addcart1', (req, res, next) => {
+    console.log(req.body.productid);
+    console.log("This is name" + req.body.name)
+    Cart.create({
+        productid: req.body.productid,
+        userid: req.body.userid,
+        price: req.body.product.price,
+        name: req.body.product.name,
+        description: req.body.product.description,
+        specification: req.body.product.specification
+    }).then((cart) => {
+        console.log(req.body);
+        res.json({ status: "Cart Added!" });
+    }).catch(next);
+});
+
 router.delete('/deletecart/:id', function (req, res) {
     Cart.findByIdAndDelete(req.params.id, req.body, function (err, register) {
         if (err) return next(err);
