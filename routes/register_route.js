@@ -89,18 +89,19 @@ router.get("/me", auth.verifyUser, (req, res, next) => {
         lname: req.Register.lname,
         email: req.Register.email,
         address: req.Register.address,
-        number: req.Register.number,
-        password: req.Register.password
+        number: req.Register.number
     });
 });
 
 //updating my detail
 router.put('/me', auth.verifyUser, (req, res, next) => {
-    console.log(req.body._id + "os id")
     Register.findByIdAndUpdate(req.body._id, { $set: req.body }, { new: true })
         .then((register) => {
 
             res.json({ fname: register.fname, lname: register.lname, address: register.address });
+        }).
+        catch(err => {
+            res.status(400)
         })
 });
 
