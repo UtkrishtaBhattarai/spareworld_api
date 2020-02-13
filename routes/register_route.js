@@ -4,6 +4,10 @@ const jwt = require("jsonwebtoken");
 const Register = require("../models/register");
 const router = express.Router();
 const auth = require("../auth");
+
+
+
+//used for registering user
 router.post("/register_user", (req, res, next) => {
     let password = req.body.password;
     bcrypt.hash(password, 10, function (err, hash) {
@@ -25,6 +29,7 @@ router.post("/register_user", (req, res, next) => {
             .catch(next);
     });
 });
+
 //forgot password
 router.post("/forgotpassword", (req, res, next) => {
     let password = req.body.password;
@@ -42,6 +47,9 @@ router.post("/forgotpassword", (req, res, next) => {
             .catch(next);
     });
 });
+
+
+//login user
 router.post("/login_user", (req, res, next) => {
     console.log(req.body);
     Register.findOne({ email: req.body.email })
@@ -69,6 +77,9 @@ router.post("/login_user", (req, res, next) => {
         })
         .catch(next);
 });
+
+
+//mydetails
 router.get("/me", auth.verifyUser, (req, res, next) => {
     let password = req.Register.password;
     bcrypt.hash(password, 10);
@@ -82,6 +93,8 @@ router.get("/me", auth.verifyUser, (req, res, next) => {
         password: req.Register.password
     });
 });
+
+//updating my detail
 router.put('/me', auth.verifyUser, (req, res, next) => {
     console.log(req.body._id + "os id")
     Register.findByIdAndUpdate(req.body._id, { $set: req.body }, { new: true })
@@ -91,6 +104,8 @@ router.put('/me', auth.verifyUser, (req, res, next) => {
         })
 });
 
+
+//getting all users for admin panel
 router.get('/getusers', (req, res, next) => {
     Register.find()
         .exec()
@@ -105,10 +120,16 @@ router.get('/getusers', (req, res, next) => {
             });
         });
 });
+
+
+//deleting users
 router.delete('/deleteuser/:id', function (req, res, next) {
     Register.findByIdAndDelete(req.params.id).then(response => {
         console.log("User detleted of" + req.params.id)
     })
 })
 
+
+
+//exporting current route
 module.exports = router;
