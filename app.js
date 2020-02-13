@@ -38,7 +38,6 @@ require("./db/spareparts");
 app.use(express.json());
 
 
-
 app.use("/register", registerRoute);
 app.use("/category", categoryRoute);
 app.use('/upload', uploadRouter);

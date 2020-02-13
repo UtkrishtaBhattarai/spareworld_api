@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
 const Order = require('../models/orders');
-
 router.post('/addorder', (req, res, next) => {
     console.log(req.body)
     Order.create({
@@ -15,13 +13,10 @@ router.post('/addorder', (req, res, next) => {
         ordernumber: req.body.ordernumber,
         dispatched: false
 
-
     }).then((order) => {
         res.json({ status: "Product Added!" });
     }).catch(next);
 });
-
-
 router.post('/addorder1', (req, res, next) => {
     console.log(req.body.ordernumber)
     Order.create({
@@ -33,12 +28,10 @@ router.post('/addorder1', (req, res, next) => {
         ordernumber: req.body.ordernumber,
         dispatched: false
 
-
     }).then((order) => {
         res.json({ status: "Product Added!" });
     }).catch(next);
 });
-
 router.get('/checkorder/:id', (req, res, next) => {
     Order.find({ userid: req.params.id }).then(docs => {
         console.log(docs);
@@ -51,7 +44,6 @@ router.get('/checkorder/:id', (req, res, next) => {
             });
         });
 })
-
 router.get('/getorder', (req, res, next) => {
     Order.find()
         .exec()
@@ -66,22 +58,19 @@ router.get('/getorder', (req, res, next) => {
             });
         });
 });
-
 router.get('/orderget/:id', function (req, res, next) {
     Order.find
         ({ ordernumber: req.params.id }).
         then(Order)
     {
-        if (Order.dispatched == null) {
+        if (Order.dispatched == true) {
             res.send({ status: "dispatched" })
         }
         else {
             res.send({ status: "notdispatched" })
         }
     }
-
 })
-
 router.put('/updateorder/:id', (req, res, next) => {
     console.log(req.params.id + "is order id")
     console.log(req.body.dispatched)
@@ -92,5 +81,9 @@ router.put('/updateorder/:id', (req, res, next) => {
             res.json({ status: "Success" });
         })
 });
+
+
+
+
 
 module.exports = router;
