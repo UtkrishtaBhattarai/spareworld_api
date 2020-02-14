@@ -20,7 +20,7 @@ describe('Register Schema test', () => {
     it('Add product testing anything', () => {
         const register = {
             'fname': 'rajaram',
-            'email': 'rajaram@gmail.com',
+            'email': 'rajara324m@gmail.com',
             'password': 'rajaram'
         };
         return Register.create(register)

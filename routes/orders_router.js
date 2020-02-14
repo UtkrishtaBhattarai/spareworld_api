@@ -83,12 +83,11 @@ router.get('/orderget/:id', function (req, res, next) {
             });
         });
 
-})
+});
 router.put('/updateorder/:id', (req, res, next) => {
-    console.log(req.params.id + "is order id")
-    console.log(req.body.dispatched)
+    console.log(req.body.order.dispatched)
     Order.findByIdAndUpdate(req.params.id,
-        { $set: req.body }, { new: true })
+        { $set: req.body.order.dispatched }, { new: true })
         .then((order) => {
 
             res.json({ status: "Success" });

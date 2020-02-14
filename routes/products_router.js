@@ -54,7 +54,7 @@ router.get('/:id', function (req, res) {
         });
 })
 
-router.put('/updateproduct/:id', (req, res, next) => {
+router.patch('/updateproduct/:id', (req, res, next) => {
     Product.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         description: req.body.description,
@@ -62,6 +62,8 @@ router.put('/updateproduct/:id', (req, res, next) => {
         price: req.body.price
     }, { new: true })
 });
+
+
 
 router.get('/getproductc', (req, res, next) => {
 

@@ -20,7 +20,7 @@ describe('Product Schema test', () => {
     it('Add product testing anything', () => {
         const product = {
             'name': 'Bike Chasis',
-            'price': '1999'
+            'price': 123123
         };
         return product.create(product)
             .then((pro_ret) => {
@@ -28,10 +28,10 @@ describe('Product Schema test', () => {
             });
     });
     //the code below is for delete testing
-    // it('to test the delete register is working or not', async () => {
-    //     const status = await Register.deleteMany();
-    //     expect(status.ok).toBe(1);
-    // });
+    it('to test the delete register is working or not', async () => {
+        const status = await Register.deleteMany();
+        expect(status.ok).toBe(1);
+    });
     it('to test the update', async () => {
 
         return product.findOneAndUpdate({ _id: Object('5e3927746360f40ba4dc9107') },
