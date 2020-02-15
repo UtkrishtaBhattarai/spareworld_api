@@ -27,7 +27,7 @@ describe("Notification Schema test", () => {
   it("to test the update", async () => {
     return Notification.findOneAndUpdate(
       { _id: Object("5e4796737db4f51dc416e39f") },
-      { $set: { title: "shtaam" } }
+      { $set: { title: "shyaam" } }
     ).then(notification => {
       expect(notification.title).toEqual("shyaam");
     });
