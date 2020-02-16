@@ -20,7 +20,7 @@ router.post("/addorder", (req, res, next) => {
     .catch(next);
 });
 router.post("/addorder1", (req, res, next) => {
-  console.log(req.body.ordernumber);
+  console.log(req.body);
   Order.create({
     userid: req.body.userid,
     billingaddress: req.body.billingaddress,
